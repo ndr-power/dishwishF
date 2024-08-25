@@ -123,7 +123,7 @@ const Main = props => {
 	const [loading, setLoading] = React.useState(false)
 	// update rows from api
 	function updateRows() {
-		axios.get('/cafe').then(res => {
+		axios.get('https://dishwish.onrender.com/cafe').then(res => {
 			if (res.status === 200) {
 				let newRows = []
 				res.data.matches.map(val => newRows.push(createData(val)))
