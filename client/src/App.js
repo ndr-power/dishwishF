@@ -42,7 +42,7 @@ class App extends Component {
 		this.getUser()
 	}
 	getUser() {
-		axios.get('/login').then(res => {
+		axios.get('https://dishwish.onrender.com/login').then(res => {
 			if (res.data.user) {
 				if (res.data.cafeId) {
 					this.context.login(res.data.user, res.data.user._id, res.data.cafeId)

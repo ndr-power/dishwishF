@@ -36,7 +36,7 @@ app.use(cookieParser(process.env.COOKIE_SECRET))
 const whitelist = [process.env.WHITELIST_IP]
 // cors options
 const corsOptions = {
-	origin: 'https://dishwish.onrender.com/'
+	origin: 'https://dishwishfront.onrender.com/'
 }
 // initializes cors
 app.use(cors(corsOptions))

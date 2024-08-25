@@ -60,7 +60,7 @@ const MapComp = props => {
 	}
 	// add markers from api
 	function updateMarkers() {
-		axios.get(`/cafe/`).then(res => {
+		axios.get(`https://dishwish.onrender.com/cafe/`).then(res => {
 			setLoading(false)
 			if (res.status === 200) {
 				let newMarkers = []

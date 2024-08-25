@@ -41,7 +41,7 @@ function FormDialog(props) {
 		if (!loggedIn) return toast.error('Log in before adding a review')
     
 		if (!(title && text)) return toast.error('Please fill all inputs')
-		axios.post(`/cafe/${cafeId}/${dishId}/r`, { userId, username, title, text, ratingOverall: (rating1 + rating2) / 2, ratingService: rating2,
+		axios.post(`https://dishwish.onrender.com/cafe/${cafeId}/${dishId}/r`, { userId, username, title, text, ratingOverall: (rating1 + rating2) / 2, ratingService: rating2,
 			ratingDish: rating1 }).then(res => {
 			if (res.status === 200) {
 				updateRows()
@@ -116,7 +116,7 @@ function ReviewCard(props) {
   const handleSentimentConfirm = (confirm) => {
     if (!loggedIn) return toast.error('Log in before adding a review')
     if (userCafeId) return toast.error('You can not post reviews as a Cafe Owner')
-      axios.post(`/cafe/${cafeId}/${dishId}/${reviewId}/confirmSentiment`, {confirm: true}).then(res => {
+      axios.post(`https://dishwish.onrender.com/cafe/${cafeId}/${dishId}/${reviewId}/confirmSentiment`, {confirm: true}).then(res => {
         if (res.status === 200) {
           toast.success('Thanks')
         } else {
@@ -279,7 +279,7 @@ const Cafe = props => {
 
 	// updates info from API
 	function updateRows() {
-		axios.get(`/cafe/${id}`).then(res => {
+		axios.get(`https://dishwish.onrender.com/cafe/${id}`).then(res => {
 			if (res.status === 200) {
         // console.log(res)
 				setRows([])

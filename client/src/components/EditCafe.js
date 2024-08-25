@@ -37,7 +37,7 @@ function Row(props) {
 
 	// deletes a dish from cafe's menu
 	function handleDelete() {
-		axios.delete(`/cafe/${cafeId}/${row._id}`).then(res => {
+		axios.delete(`https://dishwish.onrender.com/cafe/${cafeId}/${row._id}`).then(res => {
 			if (res.status === 200) {
 				editRows(res)
 				toast.success('Successfully deleted a dish!')
@@ -83,7 +83,7 @@ const EditCafe = props => {
 
 	// updates rows with info from API
 	function updateRows() {
-		axios.get(`/cafe/${cafeId}`).then(res => {
+		axios.get(`https://dishwish.onrender.com/cafe/${cafeId}`).then(res => {
 			if (res.status === 200) {
 				let newRows = []
 				res.data.matches.menu.map(val => newRows.push(val))
@@ -100,7 +100,7 @@ const EditCafe = props => {
 	function handleSubmit(e) {
 		e.preventDefault()
 		setLoadingButton(true)
-		axios.patch(`/cafe/${cafeId}`, { title, description }).then(res => {
+		axios.patch(`https://dishwish.onrender.com/cafe/${cafeId}`, { title, description }).then(res => {
 			setLoadingButton(false)
 			if (res.status === 200) {
 				toast.success('Successfully updated information')
@@ -120,7 +120,7 @@ const EditCafe = props => {
 	}
 	// adds a dish to the menu
 	function addDish() {
-		axios.post(`/cafe/${cafeId}/menu`, { title: dishName, ingredients }).then(res => {
+		axios.post(`https://dishwish.onrender.com/cafe/${cafeId}/menu`, { title: dishName, ingredients }).then(res => {
 			if (res.status === 200) {
 				setTitle(res.data.matches.title)
 				setDescription(res.data.matches.description)

@@ -23,7 +23,7 @@ const Login = props => {
 	const handleSubmit = (event) => {
 		event.preventDefault()
 		const data = new FormData(event.currentTarget);
-		axios.post('/login', {
+		axios.post('https://dishwish.onrender.com/login', {
 				username: data.get('username'),
 				password: data.get('password')
 			}).then(res => {
