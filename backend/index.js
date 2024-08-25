@@ -46,7 +46,7 @@ const corsOptions = {
 	credentials: true,
 }
 // initializes cors
-// app.use(cors(corsOptions))
+app.use(cors(corsOptions))
 // initizlizes body-parser
 app.use(bodyParser.json({ extended: true }))
 app.use(bodyParser.urlencoded({ extended: true }))
