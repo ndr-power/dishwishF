@@ -171,7 +171,7 @@ const Main = props => {
 				toast.error('Something went wrong')
 			}
 		}).catch(e => {
-      console.log(e)
+      alert(e)
       toast.error('Service unavailable')})
   }
 	return (
