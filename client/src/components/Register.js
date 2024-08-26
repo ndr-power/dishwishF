@@ -15,7 +15,7 @@ const Register = () => {
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
-		axios.post('/login/register', {
+		axios.post('https://dishwish.onrender.com/login/register', {
 			username: data.get('username'),
 			password: data.get('password')
 		}).then(res => {

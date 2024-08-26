@@ -68,7 +68,7 @@ const RegisterCafe = props => {
         // check for fields
         const cafe = postObj.cafe
         if (!(postObj.username && postObj && cafe.title && cafe.description && cafe.location && cafe.cuisine)) return alert.error('Please fill all inputs')
-        axios.post('/login/register/cafe', postObj).then(res => {
+        axios.post('https://dishwish.onrender.com/login/register/cafe', postObj).then(res => {
             if (res.status === 200) {
                 if (res.data.user){
                     history.push('/login')
