@@ -3,6 +3,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
 import cors from 'cors'
+import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
 import passport from 'passport'
 import { Strategy } from 'passport-local'
@@ -32,6 +33,8 @@ passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 // uses cookie parser
 app.use(cookieParser(process.env.COOKIE_SECRET))
+app.use(morgan('combined'))
+
 // cors white-list
 const whitelist = [process.env.WHITELIST_IP]
 // cors options
