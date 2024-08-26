@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import { Container, Box, Collapse, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Paper,
 	CircularProgress, 
   Button} from "@mui/material"
+  import { Modal } from '@mui/base/Modal';
+
 import SearchBar from "./universal/SearchBar.js"
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
@@ -117,7 +119,9 @@ const Main = props => {
 	// state
 	const [searched, setSearched] = React.useState("")
 	const [allRows, setAllRows] = React.useState({})
-
+  const [openModal, setOpenModal] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
 	const [rows, setRows] = React.useState([])
 	const [loading, setLoading] = React.useState(false)
@@ -160,16 +164,15 @@ const Main = props => {
     
     axios.post('https://dishwish.onrender.com/cafe/recommend', {userId}).then(res => {
 			if (res.status === 200) {
-				let newRows = []
-				res.data.matches.map(val => newRows.push(createData(val)))
-				setRows(newRows)
-				setAllRows(newRows)
-				setLoading(false)
+				handleOpen()
+				
 
 			} else {
 				toast.error('Something went wrong')
 			}
-		}).catch(e => toast.error('Service unavailable'))
+		}).catch(e => {
+      console.log(e)
+      toast.error('Service unavailable')})
   }
 	return (
 		<div>
@@ -220,6 +223,22 @@ const Main = props => {
                       
 
                     </Container>
+                    <Modal
+                      aria-labelledby="unstyled-modal-title"
+                      aria-describedby="unstyled-modal-description"
+                      open={open}
+                      onClose={handleClose}
+                      slots={{ backdrop: StyledBackdrop }}
+                    >
+                      <ModalContent sx={{ width: 400 }}>
+                        <h2 id="unstyled-modal-title" className="modal-title">
+                          Text in a modal
+                        </h2>
+                        <p id="unstyled-modal-description" className="modal-description">
+                          Aliquid amet deserunt earum!
+                        </p>
+                      </ModalContent>
+                    </Modal>
         </div>
 
 	)
