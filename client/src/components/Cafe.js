@@ -300,6 +300,8 @@ const Cafe = props => {
         })
         setOverallRating((ratedDishesSum / ratedDishes).toFixed(1))
         setOverallRatingService((ratedService.reduce((a,b) => a+b) / ratedService.length).toFixed(1))
+        console.log(overallRatingService)
+        console.log(overallRating)
 				setLoading(false)
 			} else {
 				setLoading(false)
@@ -340,8 +342,8 @@ const Cafe = props => {
                             <Typography variant="subtitle1" gutterBottom component="div" sx={{
                               paddingTop:2 
                           }}>
-                            Overall Rating: {overallRating ? overallRating.toFixed(1) : 0} <br />
-                            Service Rating: {overallRatingService ? overallRatingService : 0}
+                            Overall Rating: {overallRating} <br />
+                            Service Rating: {overallRatingService}
                             </Typography>
                             <Divider sx={{width:'100%', paddingTop: 1 }}>
                             <Chip label="Menu" />
