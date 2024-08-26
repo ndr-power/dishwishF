@@ -71,6 +71,7 @@ const cafeController = {
 		bestRest.menu.map(dish => {
 			let ingredients = dish.ingredients.split(',')
 			dishPointsMap[dish._id] += parseFloat(dish.rating) / 10
+			console.log(dishPointsMap)
 			console.log(parseFloat(dish.rating) / 10)
 			ingredients.forEach(ingr => {
 				if (likesIngredients.indexOf(ingr) > -1) dishPointsMap[dish._id] += 1
