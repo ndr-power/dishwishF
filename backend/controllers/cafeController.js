@@ -72,9 +72,9 @@ const cafeController = {
 			let ingredients = dish.ingredients.split(',')
 			dishPointsMap[dish._id] += parseFloat(dish.rating) / 10
 			console.log(parseFloat(dish.rating) / 10)
-			ingredients.forEach(cuisine => {
-				if (likesIngredients.indexOf(dish) > -1) dishPointsMap[dish._id] += 1
-				else if (notLikesIngredients.indexOf(dish) > -1) dishPointsMap[dish._id] -= 1
+			ingredients.forEach(ingr => {
+				if (likesIngredients.indexOf(ingr) > -1) dishPointsMap[dish._id] += 1
+				else if (notLikesIngredients.indexOf(ingr) > -1) dishPointsMap[dish._id] -= 1
 			})
 		})
 		console.log(dishPointsMap)
