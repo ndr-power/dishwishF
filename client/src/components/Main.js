@@ -157,13 +157,15 @@ const Main = props => {
 		requestSearch(searched)
 	};
 	useEffect(() => {
+    console.log('update')
 		setLoading(true)
 		updateRows()
 	}, [])
   function handleRecommend() {
-    
+    console.log('handleRecommend')
     axios.post('https://dishwish.onrender.com/cafe/recommend', {userId}).then(res => {
 			if (res.status === 200) {
+        console.log('handleRecommend2')
 				handleOpen()
 				
 
