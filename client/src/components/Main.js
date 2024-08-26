@@ -121,7 +121,9 @@ const Main = props => {
   const [openModal, setOpenModal] = React.useState(false);
   const handleOpen = () => setOpenModal(true);
   const handleClose = () => setOpenModal(false);
-
+  const [recommendRestaurant, setRecommendRestaurant] = React.useState(false)
+  const [recommendDish, setRecommendDish] = React.useState(false)
+  const [recommendRestId, setRecommendRestId] = React.useState(false)
 	const [rows, setRows] = React.useState([])
 	const [loading, setLoading] = React.useState(false)
 	// update rows from api
@@ -166,8 +168,13 @@ const Main = props => {
 			if (res.status === 200) {
         console.log('handleRecommend2')
 				handleOpen()
-				
-
+				const bestRest = res.data.cafe
+				const bestDish = res.data.dish
+        if (bestRest && bestDish){
+          setRecommendRestId(bestRest._id)
+          setRecommendRestaurant(bestRest.title)
+          setRecommendDish(bestDish.title)
+        }else toast.error('Something went wrong')
 			} else {
 				toast.error('Something went wrong')
 			}
@@ -243,10 +250,10 @@ const Main = props => {
                   >
                     <Box sx={style}>
                       <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Text in a modal
+                        Recommended restaurant: <Link to={`/cafe/${recommendRestId}`}>{recommendRestaurant}</Link>
                       </Typography>
                       <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                        Recommended dish: {recommendDish}
                       </Typography>
                     </Box>
                   </Modal>
