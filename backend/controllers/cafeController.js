@@ -77,7 +77,7 @@ const cafeController = {
 			})
 		})
 		console.log(dishPointsMap)
-		const bestDishId = Object.keys(dishPointsMap).reduce((a,b) => pointsMap[a] > pointsMap[b] ? a : b)
+		const bestDishId = Object.keys(dishPointsMap).reduce((a,b) => dishPointsMap[a] > dishPointsMap[b] ? a : b)
 		const bestDish = bestRest.menu.find(val => val._id == bestDishId)
 		console.log(bestDish._id)
 		res.json({cafe: bestRest, dish: bestDish})
