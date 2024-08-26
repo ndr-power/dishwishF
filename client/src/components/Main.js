@@ -157,7 +157,7 @@ const Main = props => {
 		updateRows()
 	}, [])
   function handleRecommend() {
-    axios.get('/recommend').then(res => {
+    axios.get('https://dishwish.onrender.com/cafe/recommend').then(res => {
 			if (res.status === 200) {
 				let newRows = []
 				res.data.matches.map(val => newRows.push(createData(val)))
