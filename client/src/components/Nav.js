@@ -34,7 +34,7 @@ const Nav = props => {
 	}
 	// logout a user
 	const handleLogout = () => {
-		axios.get('/login/logout').then(res => {
+		axios.get('https://dishwish.onrender.com/login/logout').then(res => {
 			if (res.status === 200) {
 				logout()
 				navigate('/login')

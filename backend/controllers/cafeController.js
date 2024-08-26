@@ -56,9 +56,12 @@ const cafeController = {
 		cafes.forEach(cafe => pointsMap[cafe._id] = 0)
 		cafes.forEach(cafe => {
 			const cuisines = cafe.cuisine.split(',')
+			// add overall rating to the map
+			pointsMap[cafe._id] += cafe.overallRating / 10
 			cuisines.forEach(cuisine => {
 				if (likesCuisine.indexOf(cuisine)> -1) pointsMap[cafe._id] += 1
 				else if (notLikesCuisine.indexOf(cuisine) > -1) pointsMap[cafe._id] -= 1
+				
 			})
 		})
 		const bestRestId = Object.keys(pointsMap).reduce((a,b) => pointsMap[a] > pointsMap[b] ? a : b)
@@ -66,6 +69,7 @@ const cafeController = {
 		const bestRest = cafes.find(val => val._id == bestRestId)
 		bestRest.menu.map(dish => {
 			let ingredients = dish.ingredients.split(',')
+			dishPointsMap[dish._id] += dish.rating / 10
 			ingredients.forEach(cuisine => {
 				if (likesIngredients.indexOf(dish) > -1) dishPointsMap[dish._id] += 1
 				else if (notLikesIngredients.indexOf(dish) > -1) dishPointsMap[dish._id] -= 1
