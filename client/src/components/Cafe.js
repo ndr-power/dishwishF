@@ -275,7 +275,8 @@ const Cafe = props => {
 	const [rows, setRows] = React.useState([])
 	const [info, setInfo] = React.useState({})
 	const [loading, setLoading] = React.useState(false)
-
+  const [overallRating, setOverallRating] = React.useState(0)
+  const [overallRatingService, setOverallRatingService] = React.useState(0)
 
 	// updates info from API
 	function updateRows() {
@@ -285,6 +286,20 @@ const Cafe = props => {
 				setRows([])
 				setInfo(res.data.matches)
 				setRows(res.data.matches.menu)
+        let ratedDishes = 0
+        let ratedDishesSum = 0
+        let ratedService = []
+        res.data.matches.menu.map(dish => {
+          if (dish.rating > 0) {
+            ratedDishes++
+            ratedDishesSum += dish.rating
+          }
+          dish.reviews.map(rev => {
+            ratedService.push(rev.ratingService)
+          })
+        })
+        setOverallRating((ratedDishesSum / ratedDishes).toFixed(1))
+        setOverallRatingService((ratedService.reduce((a,b) => a+b) / ratedService.length).toFixed(1))
 				setLoading(false)
 			} else {
 				setLoading(false)
@@ -325,8 +340,8 @@ const Cafe = props => {
                             <Typography variant="subtitle1" gutterBottom component="div" sx={{
                               paddingTop:2 
                           }}>
-                            Overall Rating: {info?.overallRating ? info.overallRating.toFixed(1) : 0} <br />
-                            Service Rating: {info?.ratingService ? info.ratingService : 0}
+                            Overall Rating: {overallRating ? overallRating.toFixed(1) : 0} <br />
+                            Service Rating: {overallRatingService ? overallRatingService : 0}
                             </Typography>
                             <Divider sx={{width:'100%', paddingTop: 1 }}>
                             <Chip label="Menu" />
