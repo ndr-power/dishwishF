@@ -8,9 +8,11 @@ import Review from '../models/review.js'
 import controllerUtils from './controllerUtils.js'
 import natural from 'natural'
 import aposToLexForm from 'apos-to-lex-form'
-import spellCorrector from 'spelling-corrector'
+import SpellCorrector  from 'spelling-corrector'
 import stopword from 'stopword'
 const {WordTokenizer} = natural
+const spellCorrector = new SpellCorrector();
+spellCorrector.loadDictionary();
 // request initialization with headers
 const request = promisify(r.defaults({
 	headers: {
