@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
 import { Container, Box, Collapse, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Paper,
 	CircularProgress, 
-  Button} from "@mui/material"
-  import { Modal } from '@mui/base/Modal';
+  Button, Modal} from "@mui/material"
 
 import SearchBar from "./universal/SearchBar.js"
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
@@ -225,22 +224,21 @@ const Main = props => {
                       
 
                     </Container>
-                    <Modal
-                      aria-labelledby="unstyled-modal-title"
-                      aria-describedby="unstyled-modal-description"
-                      open={openModal}
-                      onClose={handleClose}
-                      slots={{ backdrop: StyledBackdrop }}
-                    >
-                      <ModalContent sx={{ width: 400 }}>
-                        <h2 id="unstyled-modal-title" className="modal-title">
-                          Text in a modal
-                        </h2>
-                        <p id="unstyled-modal-description" className="modal-description">
-                          Aliquid amet deserunt earum!
-                        </p>
-                      </ModalContent>
-                    </Modal>
+                                <Modal
+                    open={openModal}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                  >
+                    <Box sx={style}>
+                      <Typography id="modal-modal-title" variant="h6" component="h2">
+                        Text in a modal
+                      </Typography>
+                      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                      </Typography>
+                    </Box>
+                  </Modal>
         </div>
 
 	)
