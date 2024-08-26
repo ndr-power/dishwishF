@@ -120,8 +120,8 @@ const Main = props => {
 	const [searched, setSearched] = React.useState("")
 	const [allRows, setAllRows] = React.useState({})
   const [openModal, setOpenModal] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = () => setOpenModal(true);
+  const handleClose = () => setOpenModal(false);
 
 	const [rows, setRows] = React.useState([])
 	const [loading, setLoading] = React.useState(false)
@@ -228,7 +228,7 @@ const Main = props => {
                     <Modal
                       aria-labelledby="unstyled-modal-title"
                       aria-describedby="unstyled-modal-description"
-                      open={open}
+                      open={openModal}
                       onClose={handleClose}
                       slots={{ backdrop: StyledBackdrop }}
                     >
