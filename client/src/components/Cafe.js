@@ -103,7 +103,7 @@ function FormDialog(props) {
 
 function ReviewCard(props) {
 	// props
-  const { loggedIn, cafeId: userCafeId, username: authUsername } = useAuth()
+  const { loggedIn, cafeId: userCafeId, username: authUsername, userId } = useAuth()
   const {cafeId , dishId, data} = props
   const reviewId = data._id
   const [showSentim, changeShowSentim ] = React.useState(!data.userConfirmsSentiment)
@@ -116,7 +116,7 @@ function ReviewCard(props) {
   const handleSentimentConfirm = (confirm) => {
     if (!loggedIn) return toast.error('Log in before adding a review')
     if (userCafeId) return toast.error('You can not post reviews as a Cafe Owner')
-      axios.post(`https://dishwish.onrender.com/cafe/${cafeId}/${dishId}/${reviewId}/confirmSentiment`, {confirm: true}).then(res => {
+      axios.post(`https://dishwish.onrender.com/cafe/${cafeId}/${dishId}/${reviewId}/confirmSentiment`, {confirm: true, userId}).then(res => {
         if (res.status === 200) {
           toast.success('Thanks')
         } else {

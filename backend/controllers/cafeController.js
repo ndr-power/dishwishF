@@ -27,7 +27,7 @@ const cafeController = {
 	},
 	recommend: async (req, res) => {
 		const { userId } = req.body
-
+		console.log('recommend')
 		const cafes = await Cafe.find()
 		let userReviews = []
 		cafes.forEach(cafe => {

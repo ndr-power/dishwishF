@@ -126,7 +126,7 @@ const Dishes = props => {
 	};
 	// updates rows from API
 	function updateRows() {
-		axios.get('/cafe').then(res => {
+		axios.get('https://dishwish.onrender.com/cafe').then(res => {
 			if (res.status === 200) {
 				let dishes = {}
 				res.data.matches.map(val => {

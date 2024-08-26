@@ -112,7 +112,7 @@ function createData(cafe) {
 }
 
 const Main = props => {
-	const { loggedIn, logout, cafeId } = useAuth()
+	const { loggedIn, logout, cafeId, userId } = useAuth()
 
 	// state
 	const [searched, setSearched] = React.useState("")
@@ -157,7 +157,8 @@ const Main = props => {
 		updateRows()
 	}, [])
   function handleRecommend() {
-    axios.post('https://dishwish.onrender.com/cafe/recommend').then(res => {
+    
+    axios.post('https://dishwish.onrender.com/cafe/recommend', {userId}).then(res => {
 			if (res.status === 200) {
 				let newRows = []
 				res.data.matches.map(val => newRows.push(createData(val)))
