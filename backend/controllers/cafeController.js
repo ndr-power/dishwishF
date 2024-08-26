@@ -70,6 +70,7 @@ const cafeController = {
 		const bestRest = cafes.find(val => val._id == bestRestId)
 		bestRest.menu.map(dish => {
 			let ingredients = dish.ingredients.split(',')
+			console.log(dish.rating)
 			dishPointsMap[dish._id] += dish.rating / 10
 			ingredients.forEach(cuisine => {
 				if (likesIngredients.indexOf(dish) > -1) dishPointsMap[dish._id] += 1
