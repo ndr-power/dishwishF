@@ -37,7 +37,7 @@ const whitelist = [process.env.WHITELIST_IP]
 // cors options
 const corsOptions = {
 	origin: 'https://dishwishfront.onrender.com',
-	credentials: true
+	// credentials: true
 }
 // initializes cors
 app.use(cors(corsOptions))
