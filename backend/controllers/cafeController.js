@@ -65,21 +65,19 @@ const cafeController = {
 			})
 		})
 		console.log(pointsMap)
-		const bestRestId = Object.keys(pointsMap).reduce((a,b) => pointsMap[a] < pointsMap[b] ? a : b)
+		const bestRestId = Object.keys(pointsMap).reduce((a,b) => pointsMap[a] > pointsMap[b] ? a : b)
 		let dishPointsMap = {}
 		const bestRest = cafes.find(val => val._id == bestRestId)
 		bestRest.menu.map(dish => {
 			let ingredients = dish.ingredients.split(',')
 			dishPointsMap[dish._id] = parseFloat(dish.rating) / 10
-			console.log(dishPointsMap)
-			console.log(parseFloat(dish.rating) / 10)
 			ingredients.forEach(ingr => {
 				if (likesIngredients.indexOf(ingr) > -1) dishPointsMap[dish._id] += 1
 				else if (notLikesIngredients.indexOf(ingr) > -1) dishPointsMap[dish._id] -= 1
 			})
 		})
 		console.log(dishPointsMap)
-		const bestDishId = Object.keys(dishPointsMap).reduce((a,b) => pointsMap[a] < pointsMap[b] ? a : b)
+		const bestDishId = Object.keys(dishPointsMap).reduce((a,b) => pointsMap[a] > pointsMap[b] ? a : b)
 		const bestDish = bestRest.menu.find(val => val._id == bestDishId)
 
 		res.json({cafe: bestRest, dish: bestDish})
