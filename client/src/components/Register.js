@@ -87,6 +87,14 @@ const Register = () => {
                   >
                     Login
                   </Button>
+                  <Button
+                  fullWidth
+                  variant="contained"
+                  onClick={() => navigate('/register/cafe')}
+                  sx={{ mt: 3, mb: 2 }}
+                  >
+                    Register Cafe
+                  </Button>
               </Box>
             </Box>
         </Container>

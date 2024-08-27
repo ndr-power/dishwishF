@@ -99,9 +99,7 @@ const Nav = props => {
                     <MenuItem key="Dishes" onClick={() => navigate('/dishes')}>
                       <Typography textAlign="center">Dishes</Typography>
                     </MenuItem>
-                    <MenuItem key="Map" onClick={() => navigate('/dishes')}>
-                      <Typography textAlign="center">Map</Typography>
-                    </MenuItem>
+                    
                   
                 </Menu>
               </Box>
