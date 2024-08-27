@@ -135,7 +135,7 @@ function ReviewCard(props) {
     handleSentimentConfirm(false)
 
   }
-	const { username, title, text, date, ratingOverall, sentimentConfirmed, ratingSentiment } = props['data']
+	const { userId : propUserId, title, text, date, ratingOverall, sentimentConfirmed, ratingSentiment } = props['data']
   console.log(ratingSentiment)
   let sentimentString = ''
   if (ratingSentiment < 0 ){
@@ -184,7 +184,7 @@ function ReviewCard(props) {
           </CardContent>
           <CardActions>
             Sentimentality guess: {sentimentString}
-            {showSentim && (authUsername == username) ? (< >
+            {showSentim && (propUserId == userId) ? (< >
             <Button onClick={handleAccept} size="contained">Confirm</Button>
             <Button onClick={handleDecline} size="outlined">Decline</Button>
             </>)
