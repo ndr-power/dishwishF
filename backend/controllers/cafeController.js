@@ -141,18 +141,27 @@ const cafeController = {
 		const { id, dishid } = req.params
 		const { title, text, ratingOverall, ratingService, ratingDish, userId, username } = req.body
 		const sentimentAnalyzer = new natural.SentimentAnalyzer('English', natural.PorterStemmer, 'afinn');
+		console.log(title, text)
 		let sentence = title + '.' + ' ' + text;
+		console.log(sentence)
 		// convert apostrophe-connecting words to standart lexicone form
 		sentence = aposToLexForm(sentence).toLowerCase()
+		console.log(sentence)
+
 		// remove spec chars
 		sentence = sentence.replace(/[^a-zA-Z\s]+/g, '');
+		console.log(sentence)
+
 		const tokenizer = new WordTokenizer();
 		// tokenize sentence
 		let tokenizedReview = tokenizer.tokenize(sentence)
+		console.log(tokenizedReview)
 		// correct spelling on words
 		tokenizedReview.forEach((wrd, i) => tokenizedReview[i] = spellCorrector.correct(wrd))
+		console.log(tokenizedReview)
 		// remove stop words
 		tokenizedReview = stopword.removeStopwords(tokenizedReview)
+		console.log(tokenizedReview)
 		// calculate sentiment
 		const sentiment = sentimentAnalyzer.getSentiment(tokenizedReview);
 		
