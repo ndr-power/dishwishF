@@ -155,8 +155,8 @@ function ReviewCard(props) {
         <Card sx={{ minWidth: 275 }}>
             <CardHeader
             avatar={
-            <Avatar sx={{ bgcolor: colors.red[500] }} aria-label={username}>
-                {username.toString()[0].toUpperCase()}
+            <Avatar sx={{ bgcolor: colors.red[500] }} aria-label={userId}>
+                User
             </Avatar>
             }
             action={
@@ -168,7 +168,7 @@ function ReviewCard(props) {
             </div>
             
             }
-            title={username}
+            title={"User"}
             subheader={(new Date(date)).toLocaleDateString("en-US")}
         />
           <CardContent>
