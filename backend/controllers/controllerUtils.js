@@ -2,9 +2,11 @@
 async function countRatings(id, dishId, Cafe) {
 
 	const cafe = await Cafe.findById(id)
+	console.log(cafe._id)
 	const dish = cafe.menu.find(val => val._id == dishId)
+	console.log(dish._id)
 	if (dish) {
-		console.log(cafe)
+		console.log('Dish Found')
 		await Cafe.findOneAndUpdate({_id: id}, {reviewsCount: cafe.reviewsCount + 1})
 		
 		let dates = []
@@ -169,7 +171,8 @@ const controllerUtils = {
 		}
 	},
 	 countReviews: async (Cafe, cafeId, dishId)  => {
-		return await countRatings(cafeId, dishId, Cafe)
+		await countRatings(cafeId, dishId, Cafe)
+		return true
 	 }
 
 }
