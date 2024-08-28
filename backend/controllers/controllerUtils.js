@@ -5,7 +5,7 @@ async function countRatings(id, dishId, Cafe) {
 	console.log(cafe._id)
 	const dish = cafe.menu.find(val => {
 		console.log(val._id , dishId)
-		val._id == dishId})
+		return val._id == dishId})
 	console.log(dish._id)
 	if (dish) {
 		console.log('Dish Found')
