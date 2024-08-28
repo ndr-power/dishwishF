@@ -7,6 +7,7 @@ async function countRatings(id, dishId, Cafe) {
 	const dish = cafe.menu.find(val => val._id.toString() == dishId)
 	console.log(dish._id)
 	if (dish) {
+		if (!dish.reviews.length) return
 		console.log('Dish Found')
 		await Cafe.findOneAndUpdate({_id: id}, {reviewsCount: cafe.reviewsCount + 1})
 		
