@@ -1,11 +1,10 @@
 // recalculates all ratings
 async function countRatings(id, dishId, Cafe) {
-
+	 id = id.toString()
+	 dishId = dishId.toString()
 	const cafe = await Cafe.findById(id)
 	console.log(cafe._id)
-	const dish = cafe.menu.find(val => {
-		console.log(val._id , dishId)
-		return val._id == dishId})
+	const dish = cafe.menu.find(val => val._id.toString() == dishId)
 	console.log(dish._id)
 	if (dish) {
 		console.log('Dish Found')
