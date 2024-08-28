@@ -168,9 +168,9 @@ const controllerUtils = {
 			res.status(409).json({ e })
 		}
 	},
-	updateSubSubArray: async (Model, field, subField, id, subId, params, res) => {
-
-	}
+	 countReviews: async (Cafe, cafeId, dishId)  => {
+		return await countRatings(cafeId, dishId, Cafe)
+	 }
 
 }
 export default controllerUtils

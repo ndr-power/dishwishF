@@ -25,6 +25,15 @@ const cafeController = {
 	getCafes: async (req, res) => {
 		await controllerUtils.getAll(Cafe, res)
 	},
+	countReviews: async (req, res) => {
+		const cafes = await Cafe.find()
+		cafes.forEach(async cafe => {
+			await cafe.menu.forEach(async dish => {
+				await controllerUtils.countReviews(Cafe, cafe._id, dish._id)
+				console.log(`[Recount] ${cafe.title} - ${dish.title}`)
+			})
+		})
+	},
 	recommend: async (req, res) => {
 		const { userId } = req.body
 		console.log('recommend')
