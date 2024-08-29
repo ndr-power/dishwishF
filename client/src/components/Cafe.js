@@ -135,7 +135,7 @@ function ReviewCard(props) {
     handleSentimentConfirm(false)
 
   }
-  console.log(props['data'])
+  console.log(props['data'], userId)
 	const { userId : propUserId, title, text, date, ratingOverall, sentimentConfirmed, ratingSentiment } = props['data']
   console.log(ratingSentiment)
   let sentimentString = ''
