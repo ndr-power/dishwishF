@@ -46,7 +46,11 @@ const cafeController = {
 				}
 			}
 		}
-		console.log(cafes)
+		let cafe1 = cafes[0]
+		let cafe2 = cafes[1]
+	
+		await Cafe.findOneAndUpdate({_id: cafe1._id}, cafe1)
+		await Cafe.findOneAndUpdate({_id: cafe2._id}, cafe2)
 		// await cafes.forEach(async cafe => {
 		// 	cafe.menu.forEach(async dish => {
 		// 		dish.reviews.forEach(async review => {
