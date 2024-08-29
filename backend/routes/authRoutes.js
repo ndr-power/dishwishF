@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 		if (req.user.type > 0) {
 			res.json({ user: req.user.username, cafeId: req.user.cafeId.toString() })
 		} else
-			res.json({ user: req.user.username })
+			res.json({ user: req.user.username, userId: req.user._id })
 	} else return res.status(409).json({ user: null })
 })
 // login user
@@ -21,7 +21,7 @@ router.post('/', passport.authenticate('local'), (req, res) => {
 		if (req.user.type > 0) {
 			res.json({ user: req.user.username, cafeId: req.user.cafeId.toString() })
 		} else
-			res.json({ user: req.user.username })
+			res.json({ user: req.user.username, userId: req.user._id })
 	} else return res.status(409).json({ user: null })
 
 })
@@ -31,7 +31,7 @@ router.post('/register', (req, res) => {
 	User.register(new User({ username: req.body.username }), req.body.password, (err, account) => {
 		if (err) return res.status(409).json({ user: null })
 		passport.authenticate('local')(req, res, () => {
-			res.json({ user: req.user.username })
+			res.json({ user: req.user.username, userId: req.user._id })
 		})
 	})
 })
