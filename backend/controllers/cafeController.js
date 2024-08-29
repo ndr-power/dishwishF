@@ -4,6 +4,7 @@ import { promisify } from 'util'
 import r from 'request'
 import Cafe from '../models/cafe.js'
 import Dish from '../models/dish.js'
+import User from '../models/user.js'
 import Review from '../models/review.js'
 import controllerUtils from './controllerUtils.js'
 import natural from 'natural'
@@ -24,6 +25,25 @@ const cafeController = {
     // gets all cafes
 	getCafes: async (req, res) => {
 		await controllerUtils.getAll(Cafe, res)
+	},
+	addUserId: async (req,res) => {
+		let cafes = await Cafe.find()
+		cafes.forEach(async cafe => {
+			cafe.menu.forEach(async dish => {
+				dish.reviews.forEach(async review => {
+					const cafeIndex = cafes.indexOf(cafe)
+					const dishIndex = cafes[cafeIndex].menu.indexOf(dish)
+					const reviewIndex = cafes[cafeIndex].menu[dishIndex].reviews.indexOf(review)
+					let fixedReview = review
+					const username = review.username
+					const user = await User.find({username})
+					const userId = user._id.toString()
+					fixedReview['userId'] = userId
+					console.log('Found Userid')
+					cafes[cafeIndex].menu[dishIndex].reviews[reviewIndex] = fixedReview
+				})
+			})
+		})
 	},
 	countReviews: async (req, res) => {
 		const cafes = await Cafe.find()
@@ -174,7 +194,7 @@ const cafeController = {
 		// calculate sentiment
 		const sentiment = sentimentAnalyzer.getSentiment(tokenizedReview);
 		
-		await controllerUtils.addToSubSubArray(Cafe, 'menu', 'reviews', id, dishid, Review, { title, text, userId, username, ratingOverall: (ratingDish * 0.6 + ratingService * 0.4).toFixed(1), date: new Date(), ratingService, ratingDish, ratingSentiment: sentiment }, res)
+		await controllerUtils.addToSubSubArray(Cafe, 'menu', 'reviews', id, dishid, Review, { title, text, userId: userId.toString(), username, ratingOverall: (ratingDish * 0.6 + ratingService * 0.4).toFixed(1), date: new Date(), ratingService, ratingDish, ratingSentiment: sentiment }, res)
 	},
 	confirmSentiment: async (req,res) => {
 		const { id, dishid, reviewid } = req.params

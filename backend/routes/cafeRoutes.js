@@ -5,6 +5,7 @@ const router = express.Router()
 router.get('/', cafeController.getCafes) 
 // add cafe
 router.get('/recountReviews', cafeController.countReviews)
+router.get('/addUserId', cafeController.addUserId)
 router.post('/', cafeController.addCafe) 
 router.post('/recommend', cafeController.recommend)
 // get one cafe info
