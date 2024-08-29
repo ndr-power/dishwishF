@@ -37,7 +37,7 @@ const cafeController = {
 					let fixedReview = review
 					const username = review.username
 					console.log(username)
-					const user = await User.find({username})
+					const user = await User.findOne({username})
 					console.log(user)
 					const userId = user._id.toString()
 					fixedReview['userId'] = userId
