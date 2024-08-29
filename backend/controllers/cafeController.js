@@ -28,9 +28,9 @@ const cafeController = {
 	},
 	addUserId: async (req,res) => {
 		let cafes = await Cafe.find()
-		for await (cafe of cafes){
-			for await (dish of cafe.menu){
-				for await (review of dish.reviews){
+		for await (let cafe of cafes){
+			for await (let dish of cafe.menu){
+				for await (let review of dish.reviews){
 					const cafeIndex = cafes.indexOf(cafe)
 					const dishIndex = cafes[cafeIndex].menu.indexOf(dish)
 					const reviewIndex = cafes[cafeIndex].menu[dishIndex].reviews.indexOf(review)
