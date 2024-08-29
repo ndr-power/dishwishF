@@ -185,7 +185,9 @@ function ReviewCard(props) {
           </CardContent>
           <CardActions>
             Sentimentality guess: {sentimentString}
-            {showSentim && (propUserId == userId) ? (< >
+            {/* {showSentim && (propUserId == userId) ? (< > */}
+              {showSentim  ? (< >
+
             <Button onClick={handleAccept} size="contained">Confirm</Button>
             <Button onClick={handleDecline} size="outlined">Decline</Button>
             </>)
