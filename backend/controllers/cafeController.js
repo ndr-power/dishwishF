@@ -38,6 +38,7 @@ const cafeController = {
 					const username = review.username
 					console.log(username)
 					const user = await User.find({username})
+					console.log(user.exists)
 					const userId = user._id.toString()
 					fixedReview['userId'] = userId
 					console.log('Found Userid')
