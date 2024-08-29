@@ -114,8 +114,8 @@ function ReviewCard(props) {
   }, [confirmSentim])
 
   const handleSentimentConfirm = (confirm) => {
-    if (!loggedIn) return toast.error('Log in before adding a review')
-    if (userCafeId) return toast.error('You can not post reviews as a Cafe Owner')
+    // if (!loggedIn) return toast.error('Log in before adding a review')
+    // if (userCafeId) return toast.error('You can not post reviews as a Cafe Owner')
       axios.post(`https://dishwish.onrender.com/cafe/${cafeId}/${dishId}/${reviewId}/confirmSentiment`, {confirm: true, userId}).then(res => {
         if (res.status === 200) {
           toast.success('Thanks')
