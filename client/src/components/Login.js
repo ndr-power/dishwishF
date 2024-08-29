@@ -28,6 +28,7 @@ const Login = props => {
 				password: data.get('password')
 			}).then(res => {
 				if (res.status === 200) {
+          alert( res.data.user._id)
 					if ('cafeId' in res.data) login(res.data.user, res.data.user._id, res.data.cafeId)
 					else login(res.data.user, res.data.user._id)
 					navigate('/')
