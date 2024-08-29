@@ -36,6 +36,7 @@ const cafeController = {
 					const reviewIndex = cafes[cafeIndex].menu[dishIndex].reviews.indexOf(review)
 					let fixedReview = review
 					const username = review.username
+					console.log(username)
 					const user = await User.find({username})
 					const userId = user._id.toString()
 					fixedReview['userId'] = userId
