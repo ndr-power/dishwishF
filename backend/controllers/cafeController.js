@@ -28,9 +28,9 @@ const cafeController = {
 	},
 	addUserId: async (req,res) => {
 		let cafes = await Cafe.find()
-		cafes.forEach(async cafe => {
-			cafe.menu.forEach(async dish => {
-				dish.reviews.forEach(async review => {
+		for await (cafe of cafes){
+			for await (dish of cafe.menu){
+				for await (review of dish.reviews){
 					const cafeIndex = cafes.indexOf(cafe)
 					const dishIndex = cafes[cafeIndex].menu.indexOf(dish)
 					const reviewIndex = cafes[cafeIndex].menu[dishIndex].reviews.indexOf(review)
@@ -38,14 +38,21 @@ const cafeController = {
 					const username = review.username
 					console.log(username)
 					const user = await User.find({username})
-					console.log(user.exists)
+					console.log(user)
 					const userId = user._id.toString()
 					fixedReview['userId'] = userId
 					console.log('Found Userid')
 					cafes[cafeIndex].menu[dishIndex].reviews[reviewIndex] = fixedReview
-				})
-			})
-		})
+				}
+			}
+		}
+		// await cafes.forEach(async cafe => {
+		// 	cafe.menu.forEach(async dish => {
+		// 		dish.reviews.forEach(async review => {
+					
+		// 		})
+		// 	})
+		// })
 	},
 	countReviews: async (req, res) => {
 		const cafes = await Cafe.find()
