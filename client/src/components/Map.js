@@ -54,10 +54,10 @@ const MapComp = props => {
 		},
 		userDecisionTimeout: 5000,
 	});
-	console.log(coords)
-	if (isGeolocationAvailable && isGeolocationEnabled) {
-		setCoordsMap([parseFloat(coords.latitude), parseFloat(coords.longitude)])
-	}
+	console.log(isGeolocationAvailable, isGeolocationEnabled)
+	// if (isGeolocationAvailable && isGeolocationEnabled) {
+	// 	setCoordsMap([parseFloat(coords.latitude), parseFloat(coords.longitude)])
+	// }
 	// add markers from api
 	function updateMarkers() {
 		axios.get(`https://dishwish.onrender.com/cafe/`).then(res => {
