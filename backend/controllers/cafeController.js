@@ -186,7 +186,7 @@ const cafeController = {
 		const indexOfDish = cafe.menu.indexOf(cafe.menu.find(val => val._id == dishid))
 		const indexOfReview = cafe.menu[indexOfDish].reviews.indexOf(cafe.menu[indexOfDish].reviews.find(val => val._id == reviewid))
 		cafe.menu[indexOfDish].reviews[indexOfReview].userConfirmsSentiment = true
-		cafe.menu[indexOfDish].reviews[indexOfReview].useSentiment = confirm
+		cafe.menu[indexOfDish].reviews[indexOfReview].useSentiment = confirm ? true : false
 		let fRating = cafe.menu[indexOfDish].ratingOverall
 		// select multiplier for the review 
 		let ratingSentiment = cafe.menu[indexOfDish].reviews[indexOfReview].ratingSentiment 
@@ -206,15 +206,18 @@ const cafeController = {
 			// very good
 			ratingSentiment = 1.2
 		  }
-		const finalRatingWithSentiment = cafe.menu[indexOfDish].ratingOverall * ratingSentiment
-		cafe.menu[indexOfDish].ratingOverall = finalRatingWithSentiment > 10 ? 10 : finalRatingWithSentiment
+		const finalRatingWithSentiment = cafe.menu[indexOfDish].reviews[indexOfReview].rating *ratingSentiment
+		// cafe.menu[indexOfDish].ratingOverall = finalRatingWithSentiment > 10 ? 10 : finalRatingWithSentiment
+		cafe.menu[indexOfDish].reviews[indexOfReview].rating = finalRatingWithSentiment > 10 ? 10: finalRatingWithSentiment
+
 		await Cafe.findOneAndUpdate({_id: id}, cafe)
+		return await controllerUtils.countReviews(Cafe, cafe._id.toString(), dishid)
 	},
     // add a ingredient to the dish
 	addIngredientToDish: async (req, res) => {
 		const { id, dishid } = req.params
 		const { title, image } = req.body
-		await controllerUtils.addToSubSubArray(Cafe, 'menu', 'ingredients', id, dishid, Review, { title, image }, res)
+		return await controllerUtils.addToSubSubArray(Cafe, 'menu', 'ingredients', id, dishid, Review, { title, image }, res)
 	}
 
 }
