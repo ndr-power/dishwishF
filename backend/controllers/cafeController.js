@@ -26,39 +26,7 @@ const cafeController = {
 	getCafes: async (req, res) => {
 		await controllerUtils.getAll(Cafe, res)
 	},
-	addUserId: async (req,res) => {
-		let cafes = await Cafe.find()
-		for await (let cafe of cafes){
-			for await (let dish of cafe.menu){
-				for await (let review of dish.reviews){
-					const cafeIndex = cafes.indexOf(cafe)
-					const dishIndex = cafes[cafeIndex].menu.indexOf(dish)
-					const reviewIndex = cafes[cafeIndex].menu[dishIndex].reviews.indexOf(review)
-					let fixedReview = review
-					const username = review.username
-					// console.log(username)
-					const user = await User.findOne({username})
-					// console.log(user)
-					const userId = user._id.toString()
-					fixedReview['userId'] = userId
-					console.log('Found Userid')
-					cafes[cafeIndex].menu[dishIndex].reviews[reviewIndex] = fixedReview
-				}
-			}
-		}
-		let cafe1 = cafes[0]
-		let cafe2 = cafes[1]
-	
-		await Cafe.findOneAndUpdate({_id: cafe1._id}, cafe1)
-		await Cafe.findOneAndUpdate({_id: cafe2._id}, cafe2)
-		// await cafes.forEach(async cafe => {
-		// 	cafe.menu.forEach(async dish => {
-		// 		dish.reviews.forEach(async review => {
-					
-		// 		})
-		// 	})
-		// })
-	},
+	// counts all reviews
 	countReviews: async (req, res) => {
 		const cafes = await Cafe.find()
 		cafes.forEach(async cafe => {
@@ -68,9 +36,9 @@ const cafeController = {
 			})
 		})
 	},
+	// recommends user a dish
 	recommend: async (req, res) => {
 		const { userId } = req.body
-		console.log('recommend')
 		const cafes = await Cafe.find()
 		let userReviews = []
 		cafes.forEach(cafe => {
@@ -107,11 +75,12 @@ const cafeController = {
 				
 			})
 		})
-		console.log(pointsMap)
+		// check which dishes will be best for the user
 		const bestRestId = Object.keys(pointsMap).reduce((a,b) => pointsMap[a] > pointsMap[b] ? a : b)
 		let dishPointsMap = {}
 		const bestRest = cafes.find(val => val._id == bestRestId)
 		bestRest.menu.map(dish => {
+			// sort dishes by user's ingredients preferences
 			let ingredients = dish.ingredients.split(',')
 			dishPointsMap[dish._id] = parseFloat(dish.rating) 
 			ingredients.forEach(ingr => {
@@ -119,10 +88,8 @@ const cafeController = {
 				else if (notLikesIngredients.indexOf(ingr) > -1) dishPointsMap[dish._id] -= 1
 			})
 		})
-		console.log(dishPointsMap)
 		const bestDishId = Object.keys(dishPointsMap).reduce((a,b) => dishPointsMap[a] > dishPointsMap[b] ? a : b)
 		const bestDish = bestRest.menu.find(val => val._id == bestDishId)
-		console.log(bestDish._id)
 		res.json({cafe: bestRest, dish: bestDish})
 	},
     // adds one cafe
@@ -210,16 +177,18 @@ const cafeController = {
 		
 		await controllerUtils.addToSubSubArray(Cafe, 'menu', 'reviews', id, dishid, Review, { title, text, userId: userId.toString(), username, ratingOverall: (ratingDish * 0.6 + ratingService * 0.4).toFixed(1), date: new Date(), ratingService, ratingDish, ratingSentiment: sentiment }, res)
 	},
+	// confirm sentiment guess
 	confirmSentiment: async (req,res) => {
 		const { id, dishid, reviewid } = req.params
 		const { confirm } = req.body
-
+		// find needed 
 		const cafe = await Cafe.findById(id)
 		const indexOfDish = cafe.menu.indexOf(cafe.menu.find(val => val._id == dishid))
 		const indexOfReview = cafe.menu[indexOfDish].reviews.indexOf(cafe.menu[indexOfDish].reviews.find(val => val._id == reviewid))
 		cafe.menu[indexOfDish].reviews[indexOfReview].userConfirmsSentiment = true
 		cafe.menu[indexOfDish].reviews[indexOfReview].useSentiment = confirm
 		let fRating = cafe.menu[indexOfDish].ratingOverall
+		// select multiplier for the review 
 		let ratingSentiment = cafe.menu[indexOfDish].reviews[indexOfReview].ratingSentiment 
 		if (ratingSentiment < 0 ){
 			//awful

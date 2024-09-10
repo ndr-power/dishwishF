@@ -112,10 +112,10 @@ function ReviewCard(props) {
     console.log('state changed ' + confirmSentim)
     
   }, [confirmSentim])
-
+  // sentimentality guess confirmation
   const handleSentimentConfirm = (confirm) => {
-    // if (!loggedIn) return toast.error('Log in before adding a review')
-    // if (userCafeId) return toast.error('You can not post reviews as a Cafe Owner')
+    if (!loggedIn) return toast.error('Log in before adding a review')
+    if (userCafeId) return toast.error('You can not post reviews as a Cafe Owner')
       axios.post(`https://dishwish.onrender.com/cafe/${cafeId}/${dishId}/${reviewId}/confirmSentiment`, {confirm: true, userId}).then(res => {
         if (res.status === 200) {
           toast.success('Thanks')
@@ -139,6 +139,7 @@ function ReviewCard(props) {
 	const { userId : propUserId, title, text, date, ratingOverall, sentimentConfirmed, ratingSentiment } = props['data']
   console.log(ratingSentiment)
   let sentimentString = ''
+  // UI for numerical sentiment analysis
   if (ratingSentiment < 0 ){
     sentimentString = 'Awful'
   }else if (ratingSentiment >=0 && ratingSentiment <= 0.25){
@@ -185,8 +186,7 @@ function ReviewCard(props) {
           </CardContent>
           <CardActions>
             Sentimentality guess: {sentimentString}
-            {/* {showSentim && (propUserId == userId) ? (< > */}
-              {showSentim  ? (< >
+            {showSentim && (propUserId == userId) ? (< >
 
             <Button onClick={handleAccept} size="contained">Confirm</Button>
             <Button onClick={handleDecline} size="outlined">Decline</Button>

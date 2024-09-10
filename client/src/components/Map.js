@@ -7,7 +7,6 @@ import { Link, } from 'react-router-dom'
 import { Map, Overlay } from "pigeon-maps"
 import { pink } from '@mui/material/colors'
 
-import { useGeolocated } from "react-geolocated";
 
 import toast, { Toaster } from 'react-hot-toast';
 // overlay marker element
@@ -46,18 +45,8 @@ const MapComp = props => {
 	const [loading, setLoading] = React.useState(false)
 	const [markers, setMarkers] = React.useState([])
 	const [coordsMap, setCoordsMap] = React.useState([48.8598594, 16.0479161])
-	// check for user's geolocation
-	const { coords, isGeolocationAvailable, isGeolocationEnabled } =
-	 useGeolocated({
-		positionOptions: {
-			enableHighAccuracy: false,
-		},
-		userDecisionTimeout: 5000,
-	});
-	console.log(isGeolocationAvailable, isGeolocationEnabled)
-	// if (isGeolocationAvailable && isGeolocationEnabled) {
-	// 	setCoordsMap([parseFloat(coords.latitude), parseFloat(coords.longitude)])
-	// }
+
+	
 	// add markers from api
 	function updateMarkers() {
 		axios.get(`https://dishwish.onrender.com/cafe/`).then(res => {
