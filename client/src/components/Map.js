@@ -54,7 +54,7 @@ const MapComp = props => {
 		},
 		userDecisionTimeout: 5000,
 	});
-
+	console.log(coords)
 	if (isGeolocationAvailable && isGeolocationEnabled) {
 		setCoordsMap([parseFloat(coords.latitude), parseFloat(coords.longitude)])
 	}
