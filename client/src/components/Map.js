@@ -45,7 +45,7 @@ const MapComp = props => {
 	// state
 	const [loading, setLoading] = React.useState(false)
 	const [markers, setMarkers] = React.useState([])
-	const [coordsMap, setCoordsMap] = React.useState([55.79397085, 49.13446312083333])
+	const [coordsMap, setCoordsMap] = React.useState([48.8598594, 16.0479161])
 	// check for user's geolocation
 	const { coords, isGeolocationAvailable, isGeolocationEnabled } =
 	 useGeolocated({
