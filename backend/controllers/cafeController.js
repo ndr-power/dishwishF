@@ -213,7 +213,8 @@ const cafeController = {
 
 		await Cafe.findOneAndUpdate({_id: id}, cafe)
 		 await controllerUtils.countReviews(Cafe, cafe._id.toString(), dishid)
-		 return res.json({success: true})
+		 res.status(200).json({success: true})
+		 return
 	},
     // add a ingredient to the dish
 	addIngredientToDish: async (req, res) => {

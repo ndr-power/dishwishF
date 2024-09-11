@@ -104,7 +104,7 @@ function FormDialog(props) {
 function ReviewCard(props) {
 	// props
   const { loggedIn, cafeId: userCafeId, username: authUsername, userId } = useAuth()
-  const {cafeId , dishId, data} = props
+  const {cafeId , dishId, data, updateRows} = props
   const reviewId = data._id
   const [showSentim, changeShowSentim ] = React.useState(!data.userConfirmsSentiment)
   const [confirmSentim, changeConfirmSentim] = React.useState(null)
@@ -119,6 +119,7 @@ function ReviewCard(props) {
       axios.post(`https://dishwish.onrender.com/cafe/${cafeId}/${dishId}/${reviewId}/confirmSentiment`, {confirm: true, userId}).then(res => {
         if (res.status === 200) {
           toast.success('Thanks')
+          updateRows()
         } else {
           toast.error('Something went wrong')
         }
