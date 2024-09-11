@@ -76,7 +76,7 @@ const RegisterCafe = props => {
                   toast.error("Something went wrong")
                 }
             }
-        }).catch(e => toast.error('Service unavailable'))
+        }).catch(e => history.push('/login'))
       };
       // asks for password on component mount
       React.useEffect(() => {
