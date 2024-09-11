@@ -179,6 +179,7 @@ const cafeController = {
 	},
 	// confirm sentiment guess
 	confirmSentiment: async (req,res) => {
+		console.log('CONFIRM SENTIMENT')
 		const { id, dishid, reviewid } = req.params
 		const { confirm } = req.body
 		// find needed 
@@ -206,12 +207,13 @@ const cafeController = {
 			// very good
 			ratingSentiment = 1.2
 		  }
-		const finalRatingWithSentiment = cafe.menu[indexOfDish].reviews[indexOfReview].rating *ratingSentiment
+		const finalRatingWithSentiment = cafe.menu[indexOfDish].reviews[indexOfReview].ratingOverall *ratingSentiment
 		// cafe.menu[indexOfDish].ratingOverall = finalRatingWithSentiment > 10 ? 10 : finalRatingWithSentiment
-		cafe.menu[indexOfDish].reviews[indexOfReview].rating = finalRatingWithSentiment > 10 ? 10: finalRatingWithSentiment
+		cafe.menu[indexOfDish].reviews[indexOfReview].ratingOverall = finalRatingWithSentiment > 10 ? 10: finalRatingWithSentiment
 
 		await Cafe.findOneAndUpdate({_id: id}, cafe)
-		return await controllerUtils.countReviews(Cafe, cafe._id.toString(), dishid)
+		 await controllerUtils.countReviews(Cafe, cafe._id.toString(), dishid)
+		 return res.json({success: true})
 	},
     // add a ingredient to the dish
 	addIngredientToDish: async (req, res) => {
