@@ -26,6 +26,7 @@ const Register = () => {
 					toast.error("Something went wrong")
 				}
 			}
+      
 		}).catch(e => toast.error('Service unavailable'))
 	};
 	return (

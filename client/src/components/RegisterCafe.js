@@ -75,6 +75,7 @@ const RegisterCafe = props => {
                 }else{
                   toast.error("Something went wrong")
                 }
+                navigate('/login')
             }
         }).catch(e => navigate('/login'))
       };
