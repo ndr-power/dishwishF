@@ -46,6 +46,8 @@ function FormDialog(props) {
 			if (res.status === 200) {
 				updateRows()
 				handleClose()
+        setTitle('')
+        setText('')
 				toast.success('Review added')
 			} else {
 				toast.error('Something went wrong')
