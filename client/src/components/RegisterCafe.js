@@ -19,7 +19,7 @@ function getStyles(name, cuisineName) {
 
 const RegisterCafe = props => {
   // redirects hook
-    const history = useNavigate()
+    const navigate = useNavigate()
     // context
     const { loggedIn } = useAuth()
     // state
@@ -39,7 +39,7 @@ const RegisterCafe = props => {
         'Pizza'
     ]
     // check for login
-    if (loggedIn) history.push('/')
+    if (loggedIn) navigate('/')
     // dropdown select hooks
     const handleChange = (event) => {
         const {
@@ -71,12 +71,12 @@ const RegisterCafe = props => {
         axios.post('https://dishwish.onrender.com/login/register/cafe', postObj).then(res => {
             if (res.status === 200) {
                 if (res.data.user){
-                    history.push('/login')
+                    navigate('/login')
                 }else{
                   toast.error("Something went wrong")
                 }
             }
-        }).catch(e => history.push('/login'))
+        }).catch(e => navigate('/login'))
       };
       // asks for password on component mount
       React.useEffect(() => {
